@@ -2,7 +2,6 @@ with open("/workspaces/aoc2024/day1/input.txt", "r") as f:
     input = f.read()
 input = input.split()
 
-
 def main(input):
     list1 = []
     list2 = []
