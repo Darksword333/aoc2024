@@ -1,34 +1,20 @@
 with open("/workspaces/aoc2024/day2/input.txt", "r") as f:
-    input = f.read()
-input = input.split("\n")
+    input = f.read().strip().split("\n")
 
 def main(input):
-    tab = []
-    tabtemp = []
-    safe = 0
-    val = 0
-    #Création du tableau de tableau
-    for i in range(len(input)):
-        tabtemp = input[i].split(" ")
-        for i in range(len(tabtemp)):
-            tabtemp[i] = int(tabtemp[i])
-        tab.append(tabtemp)
-    safe = len(tab)
-
-    #Vérification de la sécurité
-    for i in range(len(tab)):
-        if tab[i][0] > tab[i][1]:
-            for j in range(len(tab[i])-1):
-                val = abs(tab[i][j]-tab[i][j+1])
-                if tab[i][j] < tab[i][j+1] or val < 1 or val > 3:
-                    safe -= 1
-                    break
-        elif tab[i][0] < tab[i][1]:
-            for j in range(len(tab[i])-1):
-                val = abs(tab[i][j]-tab[i][j+1])
-                if tab[i][j] > tab[i][j+1] or val < 1 or val > 3:
-                    safe -= 1
-                    break
-    return safe
+    safe_count = 0
     
+    for report in input:
+        levels = list(map(int, report.split()))
+        
+        is_increasing = all(levels[i] < levels[i + 1] for i in range(len(levels) - 1))
+        is_decreasing = all(levels[i] > levels[i + 1] for i in range(len(levels) - 1))
+        
+        valid_diff = all(1 <= abs(levels[i] - levels[i + 1]) <= 3 for i in range(len(levels) - 1))
+        
+        if (is_increasing or is_decreasing) and valid_diff:
+            safe_count += 1
+    
+    return safe_count
+
 print(main(input))
