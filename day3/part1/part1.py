@@ -1,6 +1,5 @@
 import re
 
-# Lecture du fichier
 with open("/workspaces/aoc2024/day3/input.txt", "r") as f:
     input_data = f.read()
 
